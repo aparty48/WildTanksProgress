@@ -1,0 +1,430 @@
+<html>
+	<head>
+		<title>
+			MLCC Progress 
+		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			body
+			{
+				margin: 0;
+			}
+			#files
+			{
+				background: #1c2111;
+				box-sizing: border-box;
+				float: left;
+				padding-top: 1%;
+				padding-left: 1%;
+				padding-bottom: 1%;
+				height: 100%;
+				width: 20%;
+			}
+			#files-background
+			{
+				box-sizing: border-box;
+				background-color: #2e3718;
+				border-radius: 30px;
+				color: white;
+				font-size: 8;
+				padding-top: 5%;
+				padding-left:10%;
+				position: relative;
+				overflow: hidden;
+				height: 100%;
+				width: auto;
+			}
+			#main-background
+			{
+				background: #1c2111;
+				/*box-sizing: content-box;*/
+				box-sizing: border-box;
+				/*border: solid rgba(0,0,0,1) 10px;*/
+				padding: 1%;
+				float: left;
+				height: 100%;
+				width: 80%;
+			}
+			#main-image-background
+			{
+				background-image: url("back.png");
+				background-size: cover;
+				background-color: #2e3718;
+				border-radius: 30px;
+				position: relative;
+				height: 100%;
+				width: auto;
+			}
+			/*//////*/
+			#main-info-svg
+			{
+				/*background-color: #444ff4;*/
+				box-sizing: border-box;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				height: 40%;
+				width: 35%;
+			}
+			#days-history-background
+			{
+				box-sizing: border-box;
+				background: #1c2111;
+				border-radius: 20% 0 0 20%;
+				position: absolute;
+				padding-top: 1%;
+				padding-bottom: 1%;
+				padding-left: 1%;
+				right: 0;
+				bottom: 41%;
+				height: 45%;
+				width: 25%;
+			}
+			#days-history-layout
+			{
+				box-sizing: border-box;
+				background: #616244;
+				border-radius: 18% 0 0 18%;
+				color: white;
+				font-size: 8;
+				position: relative;
+				padding-top: 1%;
+				padding-left: 5%;
+				overflow: hidden;
+				height: 100%;
+				width: 100%;
+			}
+			#positing-layout-main-info
+			{
+				box-sizing: border-box;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				height: 38%;
+				width: 29.5%;
+			}
+			#progress-bar-svg
+			{
+				box-sizing: border-box;
+				top: 0;
+				left: 15%;
+				height: 10%;
+				width: 70%;
+				position: absolute;
+			}
+			#positing-layout-progress-bar
+			{
+				box-sizing: border-box;
+				top: 0;
+				left: 20%;
+				height: 10%;
+				width: 60%;
+				position: absolute;
+			}
+			#main-info-back-svg
+			{
+				box-sizing: border-box;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				height: 38%;
+				width: 29.5%;
+			}
+			/*///////*/
+			.progress-element
+			{
+				position: absolute;
+				background: #2e3718;
+				top: 5%;
+				height: 80%;
+				left: 5%;
+				/*
+background: rgb(0,212,255);
+background: linear-gradient(90deg, 
+rgba(0,212,255,1) 0%, 
+rgba(10,199,255,1) 6%, 
+rgba(20,186,255,1) 12%, 
+rgba(30,173,255,1) 18%, 
+rgba(40,160,255,1) 24%, 
+rgba(50,147,255,1) 30%, 
+rgba(60,134,255,1) 36%, 
+rgba(70,121,255,1) 42%, 
+rgba(80,108,255,1) 48%, 
+rgba(90,96,255,1) 54%, 
+rgba(100,83,255,1) 60%, 
+rgba(109,71,255,1) 66%, 
+rgba(119,58,255,1) 72%, 
+rgba(128,46,255,1) 78%, 
+rgba(138,33,255,1) 84%, 
+rgba(147,21,255,1) 90%, 
+rgba(153,13,255,1) 96%, 
+rgba(163,0,255,1) 100%);
+				*/
+/*#121810
+#2f3c16
+#616244
+#a9a389
+#a6afa1*/
+			}
+			#progress-bar-background
+			{
+				box-sizing: border-box;
+				position: relative;
+				height: 100%;
+				width: 100%;
+			}
+			/*//////*/
+			#main-info-background-layout
+			{
+				box-sizing: border-box;
+				position: relative;
+				font-size: 12;
+				text-align: right;
+				color: white;
+				padding-top: 8%;
+				padding-left: 8%;
+				height: 100%;
+				width: 100%;
+			}
+			/*//////*/
+			#name-project
+			{
+				top: 0;
+				left: 0;
+				color: #ffffff;
+				margin-top: 1%;
+				margin-left: 3%;
+				position: absolute;
+			}
+			#version-project
+			{
+				top: 0;
+				right: 0;
+				color: #ffffff;
+				margin-top: 1%;
+				margin-right: 3%;
+				position: absolute;
+			}
+			*
+			{
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			.lin-cont
+			{
+				color: 999999;
+			}
+			#main-content-pos
+			{
+				bottom: 0;
+				height: 90%;
+				left: 0;
+				position: absolute;
+				width: 70%;
+			}
+			#main-content-layout
+			{
+				height: 100%;
+				width: 100%;
+				position: relative;
+				padding: 5%;
+			}
+		</style>
+		<script>
+			window.onload =()=>
+			{
+				var ushej = document.getElementById("ushej");
+				var msvg = document.getElementById("main-info-svg");
+				var path1 = document.getElementById('path1');
+				var psvg = document.getElementById("progress-bar-svg");
+				var path2 = document.getElementById('path2');
+				var bmsvg = document.getElementById("main-info-back-svg");
+				var path3 = document.getElementById('path3');
+				reportWindowSize();
+				//msvg.appendChild(path1);
+				function reportWindowSize() 
+				{
+					var h = msvg.clientHeight+ 2;
+					var w = msvg.clientWidth + 4;
+					var h1 = psvg.clientHeight;
+					var w1 = psvg.clientWidth  ;
+					var h2 = bmsvg.clientHeight;
+					var w2 = bmsvg.clientWidth  ;
+var d = "M " + w + " 0 " +
+"L " + Math.ceil(w * (1-(67.5/100))) + " 0 " + 
+"C " + Math.ceil(w * (1-(67.5/100))) + " 0, " +
+Math.ceil(w * (1-(71.25/100))) + " " + Math.ceil(h * (1-(100/100)))  + ", " + 
+Math.ceil(w * (1-(75/100))) + " " + Math.ceil(h * (1-(95/100))) + " " +
+"L " + Math.ceil(w * (1-(85/100))) + " " + Math.ceil(h * (1-(80/100))) + " " +
+"C " + Math.ceil(w * (1-(85.5/100))) + " " + Math.ceil(h * (1-(79.5/100))) + ", " +
+Math.ceil(w * (1-(87.5/100))) + " " + Math.ceil(h * (1-(77.5/100)))  + ", " + 
+Math.ceil(w * (1-(87.5/100))) + " " + Math.ceil(h * (1-(70/100))) + " " +
+"L " + Math.ceil(w * (1-(87.5/100))) + " " + Math.ceil(h * (1-(15/100))) + " " +
+"C  " + Math.ceil(w * (1-(87.5/100))) + " " + Math.ceil(h * (1-(0/100))) + ", " +
+Math.ceil(w * (1-(100/100))) + " " + Math.ceil(h * (1-(0/100)))  + ", " + 
+0 + " " + h + " " +
+"L " + Math.ceil(w * (1-(0/100))) + " " + h + 
+" Z";
+
+var d1 = "M 0 0 " +
+"C " + Math.ceil(w1 * (1-(97.5/100))) + " " + Math.ceil(h1 * (1-(100/100))) + ", " +
+Math.ceil(w1 * (1-(95/100))) + " " + Math.ceil(h1 * (1-(50/100)))  + ", " + 
+Math.ceil(w1 * (1-(95/100))) + " " + Math.ceil(h1 * (1-(50/100))) + " " +
+"C " + Math.ceil(w1 * (1-(95/100))) + " " + Math.ceil(h1 * (1-(50/100))) + ", " +
+Math.ceil(w1 * (1-(92.5/100))) + " " + Math.ceil(h1 * (1-(0/100)))  + ", " + 
+Math.ceil(w1 * (1-(87.5/100))) + " " + Math.ceil(h1 * (1-(0/100))) + " " +
+"L " + Math.ceil(w1 * (1-(12.5/100))) + " " + Math.ceil(h1 * (1-(0/100))) + " " +
+"C " + Math.ceil(w1 * (1-(7.5/100))) + " " + Math.ceil(h1 * (1-(0/100))) + ", " +
+Math.ceil(w1 * (1-(5/100))) + " " + Math.ceil(h1 * (1-(50/100)))  + ", " + 
+Math.ceil(w1 * (1-(5/100))) + " " + Math.ceil(h1 * (1-(50/100))) + " " +
+"C " + Math.ceil(w1 * (1-(5/100))) + " " + Math.ceil(h1 * (1-(50/100))) + ", " +
+Math.ceil(w1 * (1-(2.5/100))) + " " + Math.ceil(h1 * (1-(100/100)))  + ", " + 
+Math.ceil(w1 * (1-(0/100))) + " " + Math.ceil(h1 * (1-(100/100))) + " " +
+"Z";
+
+var d3 = "M " + w2 + " 0 " +
+"L " + Math.ceil(w2 * (1-(80/100))) + " 0 " + 
+"C " + Math.ceil(w2 * (1-(80/100))) + " 0, " +
+Math.ceil(w2 * (1-(83.75/100))) + " " + Math.ceil(h2 * (1-(100/100)))  + ", " + 
+Math.ceil(w2 * (1-(87.5/100))) + " " + Math.ceil(h2 * (1-(95/100))) + " " +
+"L " + Math.ceil(w2 * (1-(97.5/100))) + " " + Math.ceil(h2 * (1-(80/100))) + " " +
+"C " + Math.ceil(w2 * (1-(98/100))) + " " + Math.ceil(h2 * (1-(79.5/100))) + ", " +
+Math.ceil(w2 * (1-(100/100))) + " " + Math.ceil(h2 * (1-(77.5/100)))  + ", " + 
+Math.ceil(w2 * (1-(100/100))) + " " + Math.ceil(h2 * (1-(70/100))) + " " +
+"L " + Math.ceil(w2 * (1-(100/100))) + " " + Math.ceil(h2 * (1-(15/100))) + " " +
+"C  " + Math.ceil(w2 * (1-(100/100))) + " " + Math.ceil(h2 * (1-(0/100))) + ", " +
+Math.ceil(w2 * (1-(95/100))) + " " + Math.ceil(h2 * (1-(0/100)))  + ", " + 
+Math.ceil(w2 * (1-(95/100)))  + " " + h2 + " " +
+"L " + Math.ceil(w2 * (1-(5/100))) + " " + h2 + 
+" C  " + Math.ceil(w2 * (1-(2.5/100))) + " " + Math.ceil(h2 * (1-(0/100))) + ", " +
+Math.ceil(w2 * (1-(0/100))) + " " + Math.ceil(h2 * (1-(5/100)))  + ", " + 
+Math.ceil(w2 * (1-(0/100)))  + " " + Math.ceil(h2 * (1-(10/100))) + " " +
+" Z";
+
+					msvg.setAttribute("viewBox", "0 0 " + w + " " + h);
+					path1.setAttribute('fill', '#1c2111');
+					//path1.setAttribute('stroke', 'black');
+					path1.setAttribute('d', d);
+					
+					psvg.setAttribute("viewBox", "0 0 " + w1 + " " + h1);
+					path2.setAttribute('fill', '#1c2111');
+					//path1.setAttribute('stroke', 'black');
+					path2.setAttribute('d', d1);
+					bmsvg.setAttribute("viewBox", "0 0 " + w2 + " " + h2);
+					path3.setAttribute('fill', '#2e3718');
+					//path1.setAttribute('stroke', 'black');
+					path3.setAttribute('d', d3);
+					//ushej.setAttribute("y", 10);
+					//ushej.setAttribute("x", 10);
+					//ushej.setAttribute("height", h-20);
+					//ushej.setAttribute("width", w);
+					//ushej.height = msvg.style.height;
+					//ushej.width = msvg.style.width;
+					//A +1, B +1, E +2, R +1
+					const circle = document.createElement('circle');
+					circle.setAttribute('r', '200');
+					circle.setAttribute('cx', '50');
+					circle.setAttribute('cy', '50');
+					circle.setAttribute('fill', 'red');
+					//msvg.appendChild(circle);
+				}
+				window.onresize = reportWindowSize;
+			}
+		</script>
+	</head>
+	<!--<body style="width:3840px; height:2160px; transform: scale(1);background-attachment:scroll;transform-origin: 0 0;">-->
+	<body>
+		<div id = "files">
+			<div id = "files-background">
+				<!--<b>Files: </b><br />
+<b>DataTypes</b> - 18<br />
+<b>ErrorHandler</b><br />
+└─<t class="lin-cont">113</t> - <b>ErrorHandler</b>.cs<br />
+<b>Hierarchi</b><br />
+├─<t class="lin-cont">193</t>- <b>BuildConfig</b>.cs<br />
+└─<t class="lin-cont">110</t> - <b>IR</b>.cs<br />-->
+			</div>
+		</div>
+		<div id = "main-background">
+			<div id = "main-image-background">
+				<div id = "main-content-pos">
+					<div id = "main-content-layout">
+						<div id = "first-do" 
+						style="background: rgba(46, 55, 24, 0.4); color: white; border-radius:10px; padding-left:2%; ">
+							Собраться и создать план
+						</div>
+					</div>
+				</div>
+				<div id = "name-project">
+					Wild Tanks
+				</div>
+				<svg id = "progress-bar-svg" viewBox = "0 0 0 0">
+					<!--<rect id="ushej" x="0" y="0" width="900" height="900" fill="#F79257" />-->
+					<path id = "path2" d = ""/>
+				</svg>
+				<div id = "positing-layout-progress-bar">
+					<div id = "progress-bar-background">
+						<div class = "progress-element" style="width: 5.3%; left: 3%; "></div>
+						<div class = "progress-element" style="width: 5.3%; left: 9.3%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 15.6%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 21.9%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 28.2%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 34.5%;"></div><!--36%-->
+						<div class = "progress-element" style="width: 5.3%; left: 40.8%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 47.1%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 53.4%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 59.7%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 66%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 72.3%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 78.6%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 84.9%;"></div>
+						<div class = "progress-element" style="width: 5.3%; left: 91.2%;"></div>
+					</div>
+				</div>
+				<div id = "version-project">
+					V 0.0.0
+				</div>
+				<!--<div id = "days-history-background">
+					<div id = "days-history-layout">
+						<div>
+						<pre>
+• 25.11.2023 15:26
+  Lines: 6609 +279
+						</pre>
+						</div>
+
+					</div>
+				</div>-->
+				<svg id = "main-info-svg" viewBox = "0 0 0 0">
+					<!--<rect id="ushej" x="0" y="0" width="900" height="900" fill="#F79257" />-->
+					<path id = "path1" d = ""/>
+				</svg>
+				<svg id = "main-info-back-svg" viewBox = "0 0 0 0">
+					<!--<rect id="ushej" x="0" y="0" width="900" height="900" fill="#F79257" />-->
+					<path id = "path3" d = ""/>
+				</svg>
+				<div id = "positing-layout-main-info">
+					<div id = "main-info-background-layout">
+						<div style="overflow:hidden;">
+							<div style=" position:absolute; top:7%; left:15%;font-size:19;">Complited: <b>0%</b></div>
+<div style="position:absolute; right:0; bottom:0; margin-right:4%; margin-bottom:4%; width:46%; height: 45%;">
+	<div style="position: relative; width:100%; height:100%">
+		<div style="text-align:center;font-size:10;">Lines: +0</div>
+		<div style="font-size:10;text-align:center;">
+			<b style="font-size:27;">0</b>
+		</div>
+	</div>
+</div>
+<div style="padding-left:2%; position: absolute;bottom:0;left:0;width:45%;">
+	<div style="margin-bottom:3px;border-radius:10px;border:1px solid;color: #33ee44; text-align:center;">Added: 0</div>
+	<div style="margin-bottom:3px;border-radius:10px;border:1px solid;color: #4477dd;text-align:center;">Bugs fixed: 0</div>
+	<div style="margin-bottom:3px;border-radius:10px;border:1px solid;color: orange;text-align:center;">Edits: 0 </div>
+	<div style="margin-bottom:3px;border-radius:10px;border:1px solid;color: red; text-align:center;">Removes: 0</div>
+</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
