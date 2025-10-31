@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эффект Размытия Под Текстом (Backdrop-Filter)</title>
+    <style>
+        /* ---------------------------------- */
+        /* Базовые стили и фоновое изображение */
+        /* ---------------------------------- */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            color: white; /* Основной цвет текста */
+            
+            /* Настройка фона: Замените URL ниже на ссылку на Ваше изображение */
+            background-image: url('[URL-адрес вашего изображения]'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* ---------------------------------- */
+        /* Стили контейнера текста с эффектом */
+        /* ---------------------------------- */
+        .text-overlay {
+            padding: 20px 40px;
+            border-radius: 12px; /* Немного скруглим углы для лучшего вида */
+            
+            /* 1. Очень легкая, полупрозрачная подложка */
+            background-color: rgba(0, 0, 0, 0.4); /* Черный с прозрачностью 40% */
+            
+            /* 2. *** КЛЮЧЕВОЕ СВОЙСТВО: Размытие фона! *** */
+            backdrop-filter: blur(8px); /* Установите степень размытия: 5px, 10px и т.д. */
+            
+            /* Дополнительные стили для читаемости */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Легкая тень для выделения */
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .main-text {
+            margin: 0;
+            font-size: 3em;
+            font-weight: bold;
+            line-height: 1.2;
+            /* Легкая тень на сам текст для дополнительного контраста */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="text-overlay">
+        <h1 class="main-text">Ваша Задумка</h1>
+        <p class="subtitle">
+            Эффект Размытия Фона (Backdrop-Filter) <br>
+            Улучшает читаемость, сохраняя изображение
+        </p>
+    </div>
+
+</body>
+</html>
