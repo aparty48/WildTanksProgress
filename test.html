@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тень с эффектом размытия</title>
+    <title>Настоящее Размытие по Контуру Текста</title>
     <style>
         /* ---------------------------------- */
         /* Базовые стили и фоновое изображение */
@@ -15,58 +15,122 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
-            color: white; /* Основной цвет текста */
+            font-family: 'Segoe UI', Arial, sans-serif;
             
             /* Настройка фона: Замените URL ниже на ссылку на Ваше изображение */
             background-image: url('https://i.pinimg.com/originals/97/f4/6c/97f46cfaf052cd1efa732ba59cdf7664.jpg'); 
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
         }
 
         /* ---------------------------------- */
-        /* Контейнер текста (без фона и подложки) */
+        /* Контейнер текста (для позиционирования) */
         /* ---------------------------------- */
         .text-container {
+            /* Контейнер нужен для создания контекста наложения */
+            position: relative;
             text-align: center;
-            padding: 20px;
+            /* Чтобы текст не выходил за пределы маски */
+            overflow: hidden; 
         }
 
+        /* ---------------------------------- */
+        /* Собственно сам текст */
+        /* ---------------------------------- */
         .main-text {
-            margin: 0;
-            font-size: 3.5em;
-            font-weight: bold;
-            line-height: 1.2;
+            color: white; 
+            font-size: 4em;
+            font-weight: 900;
+            /* Тень на сам текст для дополнительной четкости */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+            /* Важно: цвет текста и его прозрачность влияют на конечный результат */
+            position: relative; /* Для правильного наложения */
+            z-index: 2; /* Помещаем текст над размытым слоем */
+        }
+        
+        /* ---------------------------------------------------- */
+        /* Размытый слой (Псевдоэлемент ::before) */
+        /* ---------------------------------------------------- */
+        .main-text::before {
+            content: attr(aria-label); /* Дублируем содержимое текста */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Помещаем под текстом */
+            color: black; /* Цвет не важен, нужна его форма */
             
-            /* *** КЛЮЧЕВОЕ СВОЙСТВО: Усиленная тень! *** */
-            /* Черная тень, сдвиг 0, размытие 15px */
-            /* Добавим несколько слоев тени для максимального эффекта */
-            text-shadow: 
-                0 0 5px rgba(1,1,1,0.7), 
-                0 0 10px rgba(1,1,1,0.7), 
-                0 0 15px rgba(1,1,1,0.7), 
-                0 0 20px rgba(1,1,1,0.7);
+            /* 1. Дублируем фон: Позиционируем его так же, как и у body */
+            background-image: inherit; 
+            background-size: cover;
+            background-position: center;
+            width: 100vw; /* Ширина вьюпорта */
+            height: 100vh; /* Высота вьюпорта */
+            
+            /* 2. Применяем SVG-фильтр для размытия */
+            filter: url('#blur-filter');
+            
+            /* 3. Маскируем размытый фон по форме текста */
+            /* Маска создается из самого псевдоэлемента, что и дает форму текста */
+            mask-image: linear-gradient(black, black); /* Временно, для корректной работы */
+            
+            /* *** КЛЮЧ: Наложение маски по форме текста *** */
+            /* Здесь требуется более сложный хак с наложением. 
+               В упрощенном CSS::before мы используем filter: blur на фоновом изображении, 
+               а маскирование по контуру текста, к сожалению,
+               требует динамического создания SVG-текста или Canvas, что не входит в рамки
+               чистого CSS/HTML. 
+               
+               Мы можем использовать упрощенный метод, 
+               где blur применяется к фону, который затем маскируется.
+               
+               ВАЖНО: Для правильной работы маскирования по контуру текста 
+               с помощью чистого CSS это самый близкий, но все еще ограниченный метод.
+            */
+            
+            /* 4. Используем клиппинг или маску для имитации */
+            -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(black));
+            
+            /* Для максимального соответствия Вашей идее: 
+               Лучше всего использовать SVG-фильтр на родительском элементе, 
+               чтобы избежать прямоугольника, но это сложнее */
+        }
+        
+        /* Из-за сложности маскирования текста только в CSS, используем
+           адаптированный метод с использованием SVG-фильтра, 
+           который применяется только к области текста. */
+        
+        .main-text-blurred {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 4em;
+            font-weight: 900;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+            
+            /* Настоящий хак: применяем SVG-фильтр с размытием 
+               и смещением, чтобы он "просвечивал" через текст.
+               Это дает эффект размытого свечения, но без отдельного
+               элемента-подложки.
+            */
+            filter: url('#blur-filter'); 
         }
 
-        .subtitle {
-            margin-top: 10px;
-            font-size: 1.5em;
-            /* Применим тот же эффект и к подзаголовку */
-            text-shadow: 
-                0 0 5px #fff, 
-                0 0 10px #fff;
-        }
     </style>
 </head>
 <body>
 
-    <div class="text-container">
-        <h1 class="main-text">Сильная Тень</h1>
-        <p class="subtitle">
-            Имитация размытия с помощью многослойного `text-shadow`.
-        </p>
-    </div>
+    <svg width="0" height="0">
+      <filter id="blur-filter" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
+        <feOffset in="blur" dx="0" dy="0" result="offsetBlur" />
+        <feMerge> 
+          <feMergeNode in="offsetBlur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </svg>
+
+    <h1 class="main-text-blurred">РАЗМЫТИЕ ФОНА</h1>
 
 </body>
 </html>
